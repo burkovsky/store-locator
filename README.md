@@ -86,5 +86,3 @@ go
 2. Use [raw SQL query](https://docs.microsoft.com/en-us/ef/core/querying/raw-sql)
 
 With this approach `STDistance` function gets called only once (which theoretically could improve performance)
-
-**No tests coverage :disappointed:**
