@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>API</name>
+    </assembly>
+    <members>
+        <member name="M:API.Controllers.StoresController.Get(System.Nullable{System.Double},System.Nullable{System.Double},System.Int32)">
+            <summary>
+            Looks for stores
+            </summary>
+            <remarks>
+            GET /find-stores?lat=37.7857182&amp;lng=-122.4010508&amp;radius=50
+            </remarks>
+            <param name="lat">Must be from -90 to 90</param>
+            <param name="lng">Must be from -180 to 180</param>
+            <param name="radius">Must be more than 0</param>
+            <response code="200">Returns list of stores</response>
+            <response code="400">If some parameters are not passed validation</response>
+            <response code="500">If something is critically broken</response>
+        </member>
+    </members>
+</doc>
