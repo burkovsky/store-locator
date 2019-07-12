@@ -46,24 +46,27 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
+            // TODO Rework to middleware
+            app.UseExceptionHandler(ab => ab.Run(async context =>
             {
-                // TODO Rework to middleware
-                app.UseExceptionHandler(ab => ab.Run(async context =>
+                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                context.Response.ContentType = "application/json";
+
+                var feature = context.Features.Get<IExceptionHandlerPathFeature>();
+                dynamic error = feature.Error; // May contain sensitive application data
+                if (env.IsProduction())
                 {
-                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                    context.Response.ContentType = "application/json";
+                    error = feature.Error.Message;
+                }
 
-                    var feature = context.Features.Get<IExceptionHandlerPathFeature>();
-                    string result = JsonConvert.SerializeObject(new
-                    {
-                        error = feature.Error
-                    });
+                string result = JsonConvert.SerializeObject(new
+                {
+                    Error = error
+                });
+                await context.Response.WriteAsync(result);
+            }));
 
-                    await context.Response.WriteAsync(result);
-                }));
-            }
-            else
+            if (env.IsProduction())
             {
                 app.UseHsts();
             }
