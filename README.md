@@ -32,9 +32,27 @@
 
 **Both**
 
+- Database `StoreLocator` should be created automatically on the application startup
+- [SQL Server Express LocalDB](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb) was used for simplicity. Update `appsettings.json` file by changing `DefaultConnection` value if another database should be used
+- Use the following SQL Server scripts to insert some testing data:
+```
+USE [StoreLocator]
+GO
+
+INSERT [dbo].[sl_types] ([name], [weight]) VALUES (N'Type 1', 10)
+INSERT [dbo].[sl_types] ([name], [weight]) VALUES (N'Type 2', 20)
+INSERT [dbo].[sl_types] ([name], [weight]) VALUES (N'Type 3', 30)
+GO
+
+INSERT [dbo].[sl_stores] ([type_id], [lat], [lng], [name], [address1], [address2], [address3], [city], [state], [postal_code], [country]) VALUES (1, 37.7857182, -122.4010508, N'Store 1', N'Address 1', N'Address 2', N'Address 3', N'Los Angeles', N'CA', NULL, N'US')
+INSERT [dbo].[sl_stores] ([type_id], [lat], [lng], [name], [address1], [address2], [address3], [city], [state], [postal_code], [country]) VALUES (2, 38.100626, -122.698255, N'Store 2', N'Address 1', N'Address 2', N'Address 3', N'Marine', N'CA', NULL, N'US')
+INSERT [dbo].[sl_stores] ([type_id], [lat], [lng], [name], [address1], [address2], [address3], [city], [state], [postal_code], [country]) VALUES (2, 35.319208, -119.116885, N'Store 3', N'Address 1', N'Address 2', N'Address 3', N'Bakersfield', N'CA', NULL, N'US')
+INSERT [dbo].[sl_stores] ([type_id], [lat], [lng], [name], [address1], [address2], [address3], [city], [state], [postal_code], [country]) VALUES (2, 29.813233, -95.540026, N'Store 4', N'Address 1', N'Address 2', N'Address 3', N'Houston', N'TX', NULL, N'US')
+INSERT [dbo].[sl_stores] ([type_id], [lat], [lng], [name], [address1], [address2], [address3], [city], [state], [postal_code], [country]) VALUES (3, 40.714344, -73.914189, N'Store 5', N'Address 1', N'Address 2', N'Address 3', N'New York', N'NY', NULL, N'US')
+GO
+```
 - Endpoint should be available at **/find-stores**
 - [Swagger](https://swagger.io/) should be available at **/swagger**
-- [SQL Server Express LocalDB](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb) was used for simplicity. Update `appsettings.json` file by changing `DefaultConnection` value if another database should be used
 - If corresponding SSL certificates are preinstalled in the system all requests should be redirected from http://localhost:5000/ to https://localhost:5001/
 
 ## Important notes
@@ -45,7 +63,7 @@
 
 **Alternative solution to load stores**
 
-1. Create SQL Server stored procedure like this
+1. Create SQL Server stored procedure like this:
 ```
 use StoreLocator
 go
