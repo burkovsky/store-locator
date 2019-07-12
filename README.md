@@ -19,15 +19,31 @@
 
 ## Setup instructions
 
+**Using prebuilt packages**
 
+- Unpack and run `API.exe` file
+- Application should be available at http://localhost:5000/
+
+**Using Microsoft Visual Studio**
+
+- Open `StoreLocator.sln`
+- From the main menu select `Debug -> Start Without Debugging (Ctrl + F5)`
+- Browser should automatically load the http://localhost:5000/swagger/index.html page
+
+**Both**
+
+- Endpoint should be available at **/find-stores**
+- [Swagger](https://swagger.io/) should be available at **/swagger**
+- [SQL Server Express LocalDB](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb) was used for simplicity. Update `appsettings.json` file by changing `DefaultConnection` value if another database should be used
+- If corresponding SSL certificates are preinstalled in the system all requests should be redirected from http://localhost:5000/ to https://localhost:5001/
 
 ## Important notes
 
-#### Code first workflow with [Migrations](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/)
+**Code first workflow with [migrations](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/)**
 
-#### Implemented solution to load stores based on [SQL Server spatial data](https://docs.microsoft.com/en-us/sql/relational-databases/spatial/spatial-data-sql-server)
+**Implemented solution to load stores based on [SQL Server spatial data](https://docs.microsoft.com/en-us/sql/relational-databases/spatial/spatial-data-sql-server)**
 
-#### Alternative solution to load stores
+**Alternative solution to load stores**
 
 1. Create SQL Server stored procedure like this
 ```
@@ -53,4 +69,4 @@ go
 
 With this approach `STDistance` function gets called only once (which theoretically could improve performance)
 
-#### No tests coverage :disappointed:
+**No tests coverage :disappointed:**
